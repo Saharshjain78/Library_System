@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}
+    Welcome to {{ current_user.username }}
+{% endblock %}
+{% block content %}
+
+<div class="row profile-row">
+    <div class="col-8">
+         <h2>Requested books</h2>
+         <p>Click on the books to view the books</p>
+         <br>
+         <div class="row">
+            {% for book in books %}
+                <div class="col-md-5">
+                    <div class="card text-center bg-dark card-margin">
+                        <div class="card-body">
+                            <img src="data:image/jpeg;base64,{{ book.image|b64encode|safe }}" alt="Book Image" class="img-fluid card-image book-image">
+                            <br>
+                            <br>
+                            <p class="card-text"><strong>Book: </strong>{{ book.id }}</p>
+                            <h5 class="card-title">{{ book.name }}</h5>
+                            <p class="card-text"><strong>Author: </strong>{{ book.author }}</p>
+                            <p class="card-text"><strong>Section:</strong>{{ book.section }}</p>
+                            <p class="card-text"><strong>Description:  </strong>{{ book.description }}</p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#viewPdfModal{{ book.id }}">
+                                View
+                            </button>
+                            <div class="modal fade" id="viewPdfModal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="viewPdfModalLabel{{ book.id }}" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="viewPdfModalLabel{{ book.id }}">{{ book.name }}</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <embed src="data:application/pdf;base64,{{ book.pdf|b64encode|safe }}#toolbar=0" width="100%" height="500px" type="application/pdf">                                       
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-4">
+        <h2>Profile</h2>
+        <p>Username: {{ current_user.username }}</p>
+        <p>Email: {{ current_user.email }}</p>
+        <p>Role: {{ current_user.role }}</p>
+        <h2>Book Requests</h2>
+        {% for request in current_user.requests %}
+            <p>Book: {{ request.book.name }}</p>
+            <p>Status: {{ request.status }}</p>
+        {% endfor %}
+    </div>
+</div>

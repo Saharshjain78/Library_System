@@ -1,0 +1,217 @@
+body {
+    background-color: #0A192F;
+    color: #E6F1FF;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .navbar {
+    background-color: #112240 !important;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #64FFDA !important;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-brand:hover {
+    text-shadow: 0 0 10px #64FFDA;
+  }
+  
+  .navbar-nav .nav-link {
+    color: #8892B0 !important;
+    font-size: 16px;
+    font-weight: 400;
+    margin-right: 20px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #64FFDA !important;
+  }
+  
+  .navbar-nav .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #64FFDA;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .navbar-nav .nav-link:hover::before {
+    width: 100%;
+  }
+  
+  .btn-primary {
+    background-color: transparent;
+    border: 2px solid #64FFDA;
+    color: #64FFDA;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 15px #64FFDA;
+  }
+  
+  
+  .alert {
+    background-color: #112240;
+    border: none;
+    border-radius: 5px;
+    color: #E6F1FF;
+    margin-top: 20px;
+  }
+  
+  .alert-dismissible .close {
+    color: #E6F1FF;
+  }
+  
+  .content-section {
+    background-color: #112240;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .btn-section {
+    background-color: transparent;
+    border: 2px solid #64FFDA;
+    color: #64FFDA;
+    font-weight: 600;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-section:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 15px #64FFDA;
+  }
+  .btn-search {
+    background-color: transparent;
+    border: 2px solid #64FFDA;
+    color: #64FFDA;
+    /* Other styling as needed */
+    
+  }
+  .btn-outline-success {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-success:hover {
+    background-color: #1e6f32; /* Darker shade for hover effect */
+    color: #ffffff;
+  }
+  
+  .btn-outline-info {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #117a8b; /* Darker shade for hover effect */
+    color: #ffffff;
+  }
+  /* Container holding the cards */
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust card width */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the grid */
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column; /* Stack card content vertically */
+    justify-content: space-between; /* Distribute space around items */
+    background-color: #1A293B; /* Example background color */
+    color: #E6F1FF; /* Example text color */
+    border: none;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+  }
+  
+  .card-title {
+    color: #64FFDA; /* Highlight color for titles, matching the theme */
+    margin-bottom: 15px; /* Spacing below the title for separation */
+  }
+  
+  .card-text {
+    font-size: 16px; /* Readable text size */
+    line-height: 1.5; /* Improved text spacing for readability */
+  }
+  /* Existing CSS rules */
+  body {
+    background-color: #0A192F;
+    color: #E6F1FF;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Continue with existing media queries and other styles */
+  @media (max-width: 768px) {
+    /* Existing responsive styles... */
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #64FFDA;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .nav-item {
+    margin-right: 10px;
+  }
+  
+  .navbar-dark .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(100, 255, 218, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-nav {
+      background-color: #0A192F;
+      padding: 20px;
+      border-radius: 5px;
+    }
+  }
+  

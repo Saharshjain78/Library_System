@@ -1,0 +1,119 @@
+<style>
+    .modal-content {
+        background-color: #212121;
+        font-family: 'Roboto', sans-serif;
+        color: #fff;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .modal-body {
+        font-size: 18px;
+        color: #ffffff;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #333;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-outline-success {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="modal fade" id="editBookModal" tabindex="-1" aria-labelledby="editBookModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBookModalLabel">    Edit Book</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin-top:20px; margin-left:20px">
+                    <div class="col-11">
+                        <h1 class="text-center">Edit the Book</h1>
+                        <br>
+                        <form method="POST" enctype="multipart/form-data" action="{{ url_for('libbook') }}">
+                            <div class="form-group">
+                                <label for="section_id">Book ID</label>
+                                <input type="text" class="form-control" id="id" name="id" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="section">Section:</label>
+                                <select class="form-control" id="section" name="section">
+                                    {% for section in sections %}
+                                        <option value="{{ section.title.lower() }}">{{ section.title }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Book Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" class="form-control" id="author" name="author" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Image</label>
+                                <input type="file" class="form-control-file" id="image" name="image" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pdf">PDF</label>
+                                <input type="file" class="form-control-file" id="pdf" name="pdf" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

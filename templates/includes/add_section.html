@@ -1,0 +1,89 @@
+<style>
+    .modal-content {
+        background-color: #212121;
+        font-family: 'Roboto', sans-serif;
+        color: #fff;
+    }
+
+    .modal-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .modal-body {
+        font-size: 18px;
+        color: #ffffff;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .btn {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-secondary {
+        background-color: #333;
+        color: #fff;
+        border: none;
+    }
+
+    .btn-outline-success {
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .btn-block {
+        display: block;
+        width: 100%;
+    }
+
+    .modal-dialog {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+</style>
+
+<div class="modal fade" id="addSectionModal" tabindex="-1" aria-labelledby="addSectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSectionModalLabel">Add Section</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addSectionForm" method="POST" action="/section">
+                    {{ addsection_form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="sectionTitle">Section Title</label>
+                        {{ addsection_form.title(class="form-control", id="sectionTitle", placeholder="Enter section title") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="sectionDescription">Section Description</label>
+                        {{ addsection_form.description(class="form-control", id="sectionDescription", rows="3") }}
+                    </div>
+                    {{ addsection_form.submit(class="btn btn-primary") }}
+                </form>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

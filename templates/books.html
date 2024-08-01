@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}
+    Welcome to Books Page
+{% endblock %}
+{% block content %}
+<div class="row" style="margin-top:20px; margin-left:20px">
+    <div class="col-8">
+         <h2>Available books in the Library</h2>
+         <p>Click on the books to view the books</p>
+         <br>
+         <form action="/searchbooks" method="GET">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" name="q" placeholder="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        
+         <div class="row">
+            {% for book in books %}
+                {% set book_requested = false %}
+                {% set request_accepted = false %}
+                {% for request in current_user.requests %}
+                    {% if request.book_id == book.id %}
+                        {% if request.status == 'Pending' %}
+                            {% set book_requested = true %}
+                        {% elif request.status == 'Accepted' %}
+                            {% set request_accepted = true %}
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                {% if not request_accepted %}
+                    <div class="col-md-4">
+                        <div class="card text-center bg-dark" style="margin: 15px;">
+                            <div class="card-body">
+                                <img src="data:image/jpeg;base64,{{ book.image|b64encode|safe }}" alt="Book Image" class="img-fluid card-image" style="height: 200px;">
+                                <br>
+                                <br>
+                                <p class="card-text"><strong>Book: </strong>{{ book.id }}</p>
+                                <h5 class="card-title">{{ book.name }}</h5>
+                                <p class="card-text"><strong>Author: </strong>{{ book.author }}</p>
+                                <p class="card-text"><strong>Section:</strong>{{ book.section }}</p>
+                                <p class="card-text"><strong>Description:  </strong>{{ book.description }}</p>
+                                <p class="card-text"><strong>Average Rating: </strong>{{ get_average_rating(book.id) }}</p>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#requestModal{{ book.id }}">Request Book</button>
+                                <div class="modal fade" id="requestModal{{ book.id }}" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content bg-dark text-white">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="requestModalLabel">Request Book</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="{{ url_for('request_book', book_id=book.id) }}">
+                                                    <div class="form-group">
+                                                        <label for="days">Number of Days:</label>
+                                                        <input type="number" name="days" id="days" min="1" max="14" required class="form-control">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Request</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    
+{% endblock %}

@@ -65,40 +65,104 @@
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
    </body>
    <style>
+      :root {
+        --primary-dark: #00008B;  /* Dark Blue */
+        --primary-light: #4169E1; /* Royal Blue */
+        --secondary-dark: #1E3799;
+        --background: #ffffff;    /* White */
+        --text-dark: #00008B;
+        --text-light: #ffffff;
+      }
+
       body {
-      background-color: #292121;
-      color: white;
-      font-family: Arial, sans-serif;
+        background-color: var(--background);
+        color: var(--text-dark);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      .navbar {
+        background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
       
       .navbar-brand {
         font-size: 24px;
         font-weight: bold;
+        transition: transform 0.3s ease;
+      }
+      
+      .navbar-brand:hover {
+        transform: scale(1.05);
       }
       
       .navbar-nav .nav-link {
-        color: white;
+        color: var(--text-light) !important;
         font-size: 18px;
-        font-weight: bold;
-        margin-right: 10px;
+        font-weight: 500;
+        position: relative;
+        transition: all 0.3s ease;
       }
       
-      .navbar-nav .nav-link:hover {
-        color: lawngreen;
+      .navbar-nav .nav-link:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--text-light);
+        transition: width 0.3s ease;
       }
       
+      .navbar-nav .nav-link:hover:after {
+        width: 100%;
+      }
+
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(65, 105, 225, 0.1);
+        border-radius: 10px;
+        background: var(--background);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      }
+      
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 12px rgba(65, 105, 225, 0.2);
+      }
+
+      .btn {
+        border-radius: 25px;
+        padding: 8px 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary-light);
+        border: none;
+        color: var(--text-light);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
       .alert {
-        margin-top: 20px;
-        border-radius: 0;
+        border-radius: 10px;
+        animation: slideIn 0.5s ease;
       }
-      
-      .close {
-        color: white;
-        opacity: 0.8;
-      }
-      
-      .close:hover {
-        opacity: 1;
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
    </style>
 </html>

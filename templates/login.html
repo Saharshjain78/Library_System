@@ -4,9 +4,53 @@ Login Page
 {% endblock %}
 
 {% block content %}
+<style>
+  .form-signin {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--background);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(65, 105, 225, 0.1);
+    animation: fadeIn 0.5s ease;
+    color: var(--text-dark);
+  }
+
+  .form-control {
+    border-radius: 25px;
+    padding: 12px 20px;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(65, 105, 225, 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(65, 105, 225, 0.25);
+  }
+
+  .btn-primary {
+    background: var(--primary-light);
+    color: var(--text-light);
+  }
+
+  .btn-primary:hover {
+    background: var(--primary-dark);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
 <body class="text-center">
-    <div class="container">
-        <form method="POST" class="form-signin" style="color:white">
+        <form method="POST" class="form-signin">
             {{ form.hidden_tag() }}
             <br><br><br><br>
             <h1 class="h3 mb-3 font-weight-normal">

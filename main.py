@@ -12,6 +12,7 @@ from wtforms.validators import DataRequired
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from flask_login import UserMixin
 from datetime import datetime, timezone
+import pytz
 from flask_bcrypt import Bcrypt
 from functools import wraps
 from flask_login import current_user
@@ -23,12 +24,13 @@ from flask_apscheduler import APScheduler
 from sqlalchemy import func
 
 bcrypt = Bcrypt()
-app = Flask(__name__, static_folder='templates')
+app = Flask(__name__)
 
 app.jinja_env.filters['b64encode'] = lambda x: b64encode(x).decode('utf-8')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///library.db'
 app.config['SECRET_KEY'] = 'db2dda154f9dc44d77fbcb52'
 app.config['UPLOAD_FOLDER'] = 'templates/files'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 login_manager = LoginManager()
 login_manager.init_app(app)
 
@@ -155,9 +157,9 @@ class EditSectionForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     description = StringField('Description', validators=[DataRequired()])
     submit = SubmitField('Update Section')
-    
-    
 scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
 
 
 
@@ -169,7 +171,7 @@ def get_average_rating(book_id):
 def make_utility_functions_available():
     return dict(get_average_rating=get_average_rating)
 
-@scheduler.task('interval', id='revoke_expired_requests', seconds=60, misfire_grace_time=900)
+@scheduler.task('interval', id='revoke_expired_requests', seconds=60, misfire_grace_time=900, timezone=pytz.utc)
 def revoke_expired_requests():
     now = datetime.now(timezone.utc)
     expired_requests = BookRequest.query.filter(BookRequest.status == 'Accepted', BookRequest.expiry_date <= now).all()
@@ -295,9 +297,9 @@ def searchsection():
     if q:
         results = Section.query.filter(or_(Section.title.contains(q), Section.description.contains(q))).all()
     else:
-        results = []
-    form = SectionForm()
-    return render_template('sectionsearch.html', results=results, addsection_form=addsection_form, editsection_form=editsection_form)
+        addsection_form = SectionForm()
+        pass
+        return render_template('sectionsearch.html', results=results, addsection_form=addsection_form, editsection_form=editsection_form)
 
 
 @app.route('/searchlibbook')
@@ -455,8 +457,8 @@ def request_book(book_id):
         flash('You have already requested this book and it has not been rejected', category='danger')
         return redirect(url_for('books'))
 
-    days = min(int(request.form.get('days', 0)), 14)
-    expiry_date = datetime.now(timezone.utc) + timedelta(days=days)
+    days = 14  # Define the number of days for the request
+    pass
 
     book_request = BookRequest(user_id=current_user.id, book_id=book.id, status='Pending', request_date=datetime.now(timezone.utc), request_days=days)
     db.session.add(book_request)
@@ -523,8 +525,7 @@ def accept_request(request_id):
     book_request = BookRequest.query.get(request_id)
     if book_request:
         book_request.status = 'Accepted'
-        book_request.librarian_id = current_user.id
-        book_request.accept_date = datetime.utcnow()
+        book_request.accept_date = datetime.now(timezone.utc)
         book_request.expiry_date = book_request.accept_date + timedelta(days=book_request.request_days)
         db.session.commit()
         flash('Book request has been accepted', category='success')
@@ -580,7 +581,7 @@ def revoke_expired_requests():
     db.session.commit()
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(func=revoke_expired_requests, trigger="interval", days=1)
+scheduler.add_job(func=revoke_expired_requests, trigger="interval", days=1, timezone=pytz.utc)
 scheduler.start()
 
 @app.route('/delete_book/<int:book_id>', methods=['POST'])

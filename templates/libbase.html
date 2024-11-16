@@ -75,12 +75,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   </body>
   <style>
+    :root {
+      --primary-dark: #00008B;  /* Dark Blue */
+      --primary-light: #4169E1; /* Royal Blue */
+      --secondary-dark: #1E3799;
+      --background: #ffffff;    /* White */
+      --text-dark: #00008B;
+      --text-light: #ffffff;
+    }
+
     body {
-      background-color: #292121;
-      color: white;
-      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text-dark);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
     
+    .navbar {
+      background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+    }
+
     .navbar-brand {
       font-size: 24px;
       font-weight: bold;
@@ -94,7 +107,7 @@
     }
     
     .navbar-nav .nav-link:hover {
-      color: lawngreen;
+      color: var(--background) !important;
     }
     
     .alert {
